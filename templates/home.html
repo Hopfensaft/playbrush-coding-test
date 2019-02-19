@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Usage data</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+</head>
+<body>
+    <div style="width:80%; height:80%; position: absolute;">
+        <div style="margin-left: auto; margin-right: auto; position: relative; padding: 30px;">
+        <h3>Group data</h3>
+        <table class="table table-bordered table-sm">
+          <thead>
+            <tr>
+              <th scope="col">group</th>
+              <th scope="col">total brushes</th>
+              <th scope="col">average user brushes</th>
+              <th scope="col">average brush time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for group in group_data %}
+            <tr>
+                <td>{{ group[0] }}</td>
+                <td>{{ group[1] }}</td>
+                <td>{{ group[2]|round(2) }}</td>
+                <td>{{ group[3]|round(2) }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        </div>
+        <div style="margin-left: auto; margin-right: auto; position: relative; padding: 30px;">
+        <h3>Usage data</h3>
+        <table class="table table-bordered table-sm">
+          <thead>
+            <tr>
+              <th scope="col">group</th>
+              <th scope="col">PBID</th>
+              <th scope="col">mon</th>
+              <th scope="col">tue</th>
+              <th scope="col">wed</th>
+              <th scope="col">thu</th>
+              <th scope="col">fri</th>
+              <th scope="col">sat</th>
+              <th scope="col">sun</th>
+              <th scope="col">total-brushes</th>
+              <th scope="col">twice-brushes</th>
+              <th scope="col">avg-brush-time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in usage_data %}
+            <tr>
+                <td>{{ usage_data[user]["group"] }}</td>
+                <td>{{ user }}</td>
+                <td>{{ usage_data[user]["mon_brushes"]|default("0") }}</td>
+                <td>{{ usage_data[user]["tue_brushes"]|default("0") }}</td>
+                <td>{{ usage_data[user]["wed_brushes"]|default("0") }}</td>
+                <td>{{ usage_data[user]["thu_brushes"]|default("0") }}</td>
+                <td>{{ usage_data[user]["fri_brushes"]|default("0") }}</td>
+                <td>{{ usage_data[user]["sat_brushes"]|default("0") }}</td>
+                <td>{{ usage_data[user]["sun_brushes"]|default("0") }}</td>
+                <td>{{ usage_data[user]["total_brushes"] }}</td>
+                <td>{{ usage_data[user]["twice_brushes"] }}</td>
+                <td>{{ usage_data[user]["avg_brush_time"]|round(2) }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        </div>
+    </div>
+    {% for store in stores: %}
+        {{ store.name }} -- postcode: {{ store.postcode }} -- lon: {{ store.longitude }} -- lat: {{ store.latitude }}<br>
+    {% endfor %}
+</body>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</html>
